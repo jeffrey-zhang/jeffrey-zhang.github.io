@@ -156,6 +156,12 @@ def generate_search_data():
     with open(os.path.join(search_data_path, 'search-data.js'), 'w', encoding='utf-8') as f:
         f.write(f'window.posts = {json.dumps(posts_data, ensure_ascii=False, indent=2)};')
 
+def create_cname():
+    """创建CNAME文件"""
+    cname_path = os.path.join(FREEZER_DESTINATION, 'CNAME')
+    with open(cname_path, 'w', encoding='utf-8') as f:
+        f.write('jeffrey.zhang.press')
+
 def main():
     """主函数"""
     # 确保构建目录存在
@@ -169,6 +175,9 @@ def main():
     
     # 生成搜索数据
     generate_search_data()
+    
+    # 创建CNAME文件
+    create_cname()
     
     print(f'网站已生成到 {FREEZER_DESTINATION} 目录')
 
