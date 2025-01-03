@@ -1,0 +1,209 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.meta.title }} - 个人日记{% endblock %}
+
+{% block content %}
+<article class="post-detail">
+    <header class="post-header">
+        <h1 class="post-title">{{ post.meta.title }}</h1>
+        <div class="post-meta">
+            <time datetime="{{ post.meta.date|datetime }}">{{ post.meta.date|datetime }}</time>
+            <a href="{{ url_for('category', category=post.meta.category) }}" class="category">{{ post.meta.category }}</a>
+            <div class="tag-list">
+                {% for tag in post.meta.tags %}
+                <a href="{{ url_for('tag', tag=tag) }}" class="tag">{{ tag }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </header>
+
+    <div class="post-content">
+        {{ post.html|safe }}
+    </div>
+
+    <div id="comments" class="comments-section">
+        <h2>评论</h2>
+    </div>
+</article>
+
+<style>
+    .comments-section {
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--border-color);
+    }
+
+    .comments-section h2 {
+        margin-bottom: 1rem;
+    }
+
+    .comment-hint {
+        color: var(--secondary-color);
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+    }
+
+    .comment-link {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        background-color: var(--primary-color);
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        font-size: 0.9rem;
+        transition: background-color 0.2s;
+    }
+
+    .comment-link:hover {
+        background-color: #000;
+    }
+</style>
+
+<script src="/static/js/comments.js"></script>
+
+<style>
+    .post-detail {
+        width: 100%;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        min-height: 100%;
+    }
+
+    .post-header {
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid var(--border-color);
+        background: var(--background-color);
+    }
+
+    .post-content {
+        flex: 1;
+        line-height: 1.8;
+        font-size: 1.1rem;
+    }
+
+    .post-content p {
+        margin: 1.5rem 0;
+    }
+
+    .post-content h1,
+    .post-content h2,
+    .post-content h3,
+    .post-content h4,
+    .post-content h5,
+    .post-content h6 {
+        margin: 2.5rem 0 1.5rem;
+        line-height: 1.4;
+    }
+
+    .post-content h1 { font-size: 2.2rem; }
+    .post-content h2 { font-size: 1.8rem; }
+    .post-content h3 { font-size: 1.5rem; }
+    .post-content h4 { font-size: 1.3rem; }
+    .post-content h5 { font-size: 1.2rem; }
+    .post-content h6 { font-size: 1.1rem; }
+
+    .post-content p {
+        margin: 1rem 0;
+    }
+
+    .post-content img {
+        max-width: 100%;
+        height: auto;
+        margin: 1rem 0;
+    }
+
+    .post-content blockquote {
+        margin: 2rem 0;
+        padding: 1rem 1.5rem;
+        border-left: 4px solid var(--border-color);
+        background: #f9f9f9;
+        font-style: italic;
+    }
+
+    .post-content blockquote p {
+        margin: 0.5rem 0;
+    }
+
+    .post-content code {
+        background: #f5f5f5;
+        padding: 0.2rem 0.4rem;
+        border-radius: 3px;
+        font-size: 0.9em;
+    }
+
+    .post-content pre {
+        background: #f5f5f5;
+        padding: 1.5rem;
+        border-radius: 8px;
+        overflow-x: auto;
+        margin: 2rem 0;
+        font-size: 0.95rem;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .post-content pre code {
+        background: none;
+        padding: 0;
+    }
+
+    .post-content ul,
+    .post-content ol {
+        margin: 1.5rem 0;
+        padding-left: 2rem;
+    }
+
+    .post-content li {
+        margin: 0.5rem 0;
+    }
+
+    .post-content table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 2rem 0;
+        font-size: 0.95rem;
+    }
+
+    .post-content th,
+    .post-content td {
+        padding: 0.75rem;
+        border: 1px solid var(--border-color);
+    }
+
+    .post-content th {
+        background: #f5f5f5;
+        font-weight: 600;
+    }
+
+    .post-content tr:nth-child(even) {
+        background: #fafafa;
+    }
+
+    .post-content th {
+        background: #f5f5f5;
+    }
+
+    /* 目录样式 */
+    .table-of-contents {
+        background: #f9f9f9;
+        padding: 1rem;
+        margin: 1rem 0;
+        border-radius: 5px;
+    }
+
+    .table-of-contents ul {
+        list-style: none;
+        padding-left: 1rem;
+    }
+
+    .table-of-contents a {
+        text-decoration: none;
+        color: var(--secondary-color);
+    }
+
+    .table-of-contents a:hover {
+        color: var(--primary-color);
+    }
+</style>
+{% endblock %}

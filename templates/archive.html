@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block title %}归档 - 个人日记{% endblock %}
+
+{% block content %}
+<div class="archive">
+    {% for year, months in archive|dictsort(reverse=true) %}
+    <section class="archive-year">
+        <h2 class="year-title">{{ year }}</h2>
+        {% for month, posts in months|dictsort(reverse=true) %}
+        <div class="archive-month">
+            {% for post in posts %}
+            <article class="archive-item">
+                <time datetime="{{ post.meta.date|datetime }}" class="archive-date">
+                    {{ post.meta.date|datetime("%m-%d") }}
+                </time>
+                <h3 class="archive-title">
+                    <a href="{{ url_for('post', path=post.path) }}">{{ post.meta.title }}</a>
+                </h3>
+                <a href="{{ url_for('category', category=post.meta.category) }}" class="archive-category">
+                    {{ post.meta.category }}
+                </a>
+            </article>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </section>
+    {% endfor %}
+</div>
+
+<style>
+    .archive {
+        max-width: 100%;
+    }
+
+    .archive-year {
+        margin-bottom: 3rem;
+    }
+
+    .year-title {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        color: var(--primary-color);
+    }
+
+    .archive-month {
+        margin-left: 1rem;
+    }
+
+    .archive-item {
+        display: flex;
+        align-items: baseline;
+        margin-bottom: 1rem;
+        gap: 1rem;
+    }
+
+    .archive-date {
+        color: var(--secondary-color);
+        font-size: 0.9rem;
+        min-width: 4rem;
+    }
+
+    .archive-title {
+        font-size: 1rem;
+        font-weight: normal;
+        margin: 0;
+        flex-grow: 1;
+    }
+
+    .archive-title a {
+        text-decoration: none;
+        color: var(--primary-color);
+    }
+
+    .archive-title a:hover {
+        text-decoration: underline;
+    }
+
+    .archive-category {
+        font-size: 0.9rem;
+        color: var(--secondary-color);
+        text-decoration: none;
+        padding: 0.2rem 0.5rem;
+        background: var(--border-color);
+        border-radius: 3px;
+    }
+
+    .archive-category:hover {
+        color: var(--primary-color);
+    }
+
+    @media (max-width: 600px) {
+        .archive-item {
+            flex-wrap: wrap;
+        }
+
+        .archive-date {
+            min-width: auto;
+        }
+
+        .archive-title {
+            width: 100%;
+            margin: 0.2rem 0;
+        }
+    }
+</style>
+{% endblock %}

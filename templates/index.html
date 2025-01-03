@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+
+{% block title %}首页 - ZHANG.PRESS{% endblock %}
+
+{% block content %}
+<div class="post-list">
+    {% for post in posts %}
+    <article class="post-item">
+        <h2 class="post-title">
+            <a href="{{ url_for('post', path=post.path) }}">{{ post.meta.title }}</a>
+        </h2>
+        <div class="post-meta">
+            <time datetime="{{ post.meta.date|datetime }}">{{ post.meta.date|datetime }}</time>
+            <a href="{{ url_for('category', category=post.meta.category) }}" class="category">{{ post.meta.category }}</a>
+            <div class="tag-list">
+                {% for tag in post.meta.tags %}
+                <a href="{{ url_for('tag', tag=tag) }}" class="tag">{{ tag }}</a>
+                {% endfor %}
+            </div>
+        </div>
+        {% if post.meta.description %}
+        <div class="post-description">
+            {{ post.meta.description }}
+        </div>
+        {% endif %}
+    </article>
+    {% else %}
+    <p class="no-posts">暂无文章</p>
+    {% endfor %}
+</div>
+
+<style>
+    .post-list {
+        display: grid;
+        gap: 2.5rem;
+        padding: 1rem 0;
+    }
+
+    .post-item {
+        background: white;
+        border-radius: 8px;
+        padding: 2rem;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .post-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .post-title {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+        line-height: 1.4;
+    }
+
+    .post-title a {
+        text-decoration: none;
+        color: var(--primary-color);
+        transition: color 0.2s;
+    }
+
+    .post-title a:hover {
+        color: #000;
+    }
+
+    .post-meta {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        font-size: 0.95rem;
+        color: var(--secondary-color);
+    }
+
+    .post-meta time {
+        color: var(--secondary-color);
+    }
+
+    .post-meta .category {
+        text-decoration: none;
+        color: var(--primary-color);
+        font-weight: 500;
+    }
+
+    .tag-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .tag {
+        background: var(--border-color);
+        padding: 0.2rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        text-decoration: none;
+        color: var(--secondary-color);
+        transition: all 0.2s;
+    }
+
+    .tag:hover {
+        background: var(--primary-color);
+        color: white;
+    }
+
+    .post-description {
+        color: var(--secondary-color);
+        line-height: 1.6;
+        margin-top: 1rem;
+        font-size: 1rem;
+    }
+
+    .no-posts {
+        text-align: center;
+        color: var(--secondary-color);
+        font-size: 1.2rem;
+        padding: 3rem 0;
+    }
+
+    @media (max-width: 768px) {
+        .post-item {
+            padding: 1.5rem;
+        }
+
+        .post-title {
+            font-size: 1.5rem;
+        }
+
+        .post-meta {
+            font-size: 0.9rem;
+        }
+    }
+</style>
+{% endblock %}

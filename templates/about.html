@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}关于 - 个人日记{% endblock %}
+
+{% block content %}
+<article class="about-page">
+    <h1 class="page-title">关于本站</h1>
+    
+    <section class="about-section">
+        <h2>网站介绍</h2>
+        <p>这是一个基于 Flask 和 GitHub Pages 搭建的个人日记系统，用于记录和分享个人的想法、学习笔记和生活点滴。</p>
+    </section>
+
+    <section class="about-section">
+        <h2>主要功能</h2>
+        <ul>
+            <li>支持 Markdown 格式写作</li>
+            <li>文章分类和标签管理</li>
+            <li>按日期归档</li>
+            <li>全文搜索</li>
+            <li>响应式设计，支持移动端访问</li>
+            <li>通过 Git 进行版本控制</li>
+        </ul>
+    </section>
+
+    <section class="about-section">
+        <h2>技术栈</h2>
+        <ul>
+            <li>后端：Python Flask</li>
+            <li>前端：HTML、CSS、JavaScript</li>
+            <li>部署：GitHub Pages</li>
+            <li>自动化：GitHub Actions</li>
+        </ul>
+    </section>
+
+    <section class="about-section">
+        <h2>联系方式</h2>
+        <p>如果你有任何问题或建议，欢迎通过以下方式联系我：</p>
+        <ul>
+            <li>GitHub: <a href="https://github.com/jeffrey-zhang" target="_blank">@jeffrey-zhang</a></li>
+        </ul>
+    </section>
+</article>
+
+<style>
+    .about-page {
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
+    .page-title {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+        color: var(--primary-color);
+    }
+
+    .about-section {
+        margin-bottom: 2.5rem;
+    }
+
+    .about-section h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: var(--primary-color);
+    }
+
+    .about-section p {
+        margin-bottom: 1rem;
+        line-height: 1.6;
+    }
+
+    .about-section ul {
+        list-style: none;
+        padding-left: 0;
+    }
+
+    .about-section li {
+        margin-bottom: 0.5rem;
+        position: relative;
+        padding-left: 1.5rem;
+    }
+
+    .about-section li:before {
+        content: "•";
+        position: absolute;
+        left: 0;
+        color: var(--secondary-color);
+    }
+
+    .about-section a {
+        color: var(--primary-color);
+        text-decoration: none;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .about-section a:hover {
+        border-bottom-color: var(--primary-color);
+    }
+</style>
+{% endblock %}

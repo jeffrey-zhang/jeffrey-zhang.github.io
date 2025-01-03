@@ -1,0 +1,8 @@
+Flask==3.0.2
+Markdown==3.5.2
+PyYAML==6.0.1
+python-frontmatter==1.1.0
+Pygments==2.17.2
+Flask-FlatPages==0.7.3
+python-dateutil==2.8.2
+Frozen-Flask==1.0.1

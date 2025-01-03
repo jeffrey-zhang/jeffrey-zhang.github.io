@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}标签 - 个人日记{% endblock %}
+
+{% block content %}
+<div class="tags-page">
+    <h1 class="page-title">标签云</h1>
+    <div class="tag-cloud">
+        {% for tag in tags %}
+        <a href="{{ url_for('tag', tag=tag) }}" class="tag-item">
+            {{ tag }}
+        </a>
+        {% else %}
+        <p>暂无标签</p>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    .page-title {
+        margin-bottom: 2rem;
+        font-size: 2rem;
+        color: var(--primary-color);
+    }
+
+    .tag-cloud {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        padding: 1rem;
+        background: var(--background-color);
+        border-radius: 5px;
+    }
+
+    .tag-item {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        background: var(--border-color);
+        border-radius: 20px;
+        text-decoration: none;
+        color: var(--secondary-color);
+        font-size: 1rem;
+        transition: all 0.2s ease;
+    }
+
+    .tag-item:hover {
+        transform: translateY(-2px);
+        background: var(--primary-color);
+        color: var(--background-color);
+    }
+
+    @media (max-width: 600px) {
+        .tag-cloud {
+            justify-content: center;
+        }
+    }
+</style>
+{% endblock %}
