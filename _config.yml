@@ -1,1 +1,33 @@
-theme: jekyll-theme-cayman
+title: 个人笔记
+description: 学习笔记与心得分享
+theme: minima
+permalink: /:year/:month/:day/:title/
+
+# 导航链接
+header_pages:
+  - about.md
+  - categories.md
+  - tags.md
+
+# 显示摘要
+show_excerpts: true
+
+# 时区设置
+timezone: Asia/Shanghai
+
+# Markdown 设置
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+# 分页设置
+paginate: 10
+paginate_path: "/page:num/"
+
+# 插件
+plugins:
+  - jekyll-feed
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-seo-tag
