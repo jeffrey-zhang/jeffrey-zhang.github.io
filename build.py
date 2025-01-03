@@ -19,6 +19,7 @@ POST_DIR = 'posts'
 # 初始化 Flask
 app = Flask(__name__)
 app.config.from_object(__name__)
+app.jinja_env.globals['now'] = datetime.now()
 
 # 初始化 FlatPages 和 Freezer
 pages = FlatPages(app)
