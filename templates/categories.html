@@ -1,68 +1,85 @@
 {% extends "base.html" %}
 
-{% block title %}分类 - 个人日记{% endblock %}
+{% block title %}分类 - ZHANG.PRESS{% endblock %}
 
 {% block content %}
-<div class="categories">
+<div class="categories-page">
     <h1 class="page-title">文章分类</h1>
-    <div class="category-list">
+    <div class="categories-list">
         {% for category, count in categories|dictsort %}
         <a href="{{ url_for('category', category=category) }}" class="category-item">
             <span class="category-name">{{ category }}</span>
             <span class="category-count">{{ count }}</span>
         </a>
         {% else %}
-        <p>暂无分类</p>
+        <p class="no-categories">暂无分类</p>
         {% endfor %}
     </div>
 </div>
 
 <style>
+    .categories-page {
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
     .page-title {
-        margin-bottom: 2rem;
         font-size: 2rem;
+        margin-bottom: 2rem;
         color: var(--primary-color);
     }
 
-    .category-list {
+    .categories-list {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
         gap: 1rem;
+        padding: 1rem 0;
     }
 
     .category-item {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 1rem;
-        background: var(--background-color);
-        border: 1px solid var(--border-color);
-        border-radius: 5px;
+        padding: 1rem 1.5rem;
+        background: white;
+        border-radius: 8px;
         text-decoration: none;
         color: var(--primary-color);
-        transition: all 0.2s ease;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        transition: all 0.2s;
     }
 
     .category-item:hover {
         transform: translateY(-2px);
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
 
     .category-name {
-        font-size: 1.1rem;
+        font-weight: 500;
     }
 
     .category-count {
         background: var(--border-color);
         padding: 0.2rem 0.6rem;
-        border-radius: 12px;
-        font-size: 0.9rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
         color: var(--secondary-color);
     }
 
-    @media (max-width: 600px) {
-        .category-list {
-            grid-template-columns: 1fr;
+    .no-categories {
+        text-align: center;
+        color: var(--secondary-color);
+        padding: 2rem 0;
+        grid-column: 1 / -1;
+    }
+
+    @media (max-width: 768px) {
+        .categories-list {
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        }
+
+        .category-item {
+            padding: 0.8rem 1rem;
         }
     }
 </style>

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}标签：{{ tag }} - ZHANG.PRESS{% endblock %}
+
+{% block content %}
+<div class="tag-page">
+    <h1 class="page-title">标签：{{ tag }}</h1>
+    <div class="post-list">
+        {% for post in posts %}
+        <article class="post-item">
+            <h2 class="post-title">
+                <a href="{{ url_for('post', path=post.path) }}">{{ post.meta.title }}</a>
+            </h2>
+            <div class="post-meta">
+                <time datetime="{{ post.meta.date|datetime }}">{{ post.meta.date|datetime }}</time>
+                <a href="{{ url_for('category', category=post.meta.category) }}" class="category">{{ post.meta.category }}</a>
+                <div class="tag-list">
+                    {% for tag in post.meta.tags %}
+                    <a href="{{ url_for('tag', tag=tag) }}" class="tag">{{ tag }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% if post.meta.description %}
+            <div class="post-description">
+                {{ post.meta.description }}
+            </div>
+            {% endif %}
+        </article>
+        {% else %}
+        <p class="no-posts">该标签下暂无文章</p>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    .tag-page {
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
+    .page-title {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+        color: var(--primary-color);
+    }
+
+    .no-posts {
+        text-align: center;
+        color: var(--secondary-color);
+        padding: 2rem 0;
+    }
+</style>
+{% endblock %}

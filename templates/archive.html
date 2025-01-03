@@ -1,106 +1,167 @@
 {% extends "base.html" %}
 
-{% block title %}归档 - 个人日记{% endblock %}
+{% block title %}归档 - ZHANG.PRESS{% endblock %}
 
 {% block content %}
-<div class="archive">
-    {% for year, months in archive|dictsort(reverse=true) %}
-    <section class="archive-year">
-        <h2 class="year-title">{{ year }}</h2>
-        {% for month, posts in months|dictsort(reverse=true) %}
-        <div class="archive-month">
-            {% for post in posts %}
-            <article class="archive-item">
-                <time datetime="{{ post.meta.date|datetime }}" class="archive-date">
-                    {{ post.meta.date|datetime("%m-%d") }}
-                </time>
-                <h3 class="archive-title">
-                    <a href="{{ url_for('post', path=post.path) }}">{{ post.meta.title }}</a>
-                </h3>
-                <a href="{{ url_for('category', category=post.meta.category) }}" class="archive-category">
-                    {{ post.meta.category }}
-                </a>
-            </article>
+<div class="archive-page">
+    <h1 class="page-title">文章归档</h1>
+    <div class="archive-list">
+        {% for year, months in archive|dictsort(reverse=true) %}
+        <div class="year-group">
+            <h2 class="year">{{ year }}年</h2>
+            {% for month, posts in months|dictsort(reverse=true) %}
+            <div class="month-group">
+                <h3 class="month">{{ month }}月</h3>
+                <ul class="post-list">
+                    {% for post in posts|sort(attribute='meta.date', reverse=true) %}
+                    <li class="post-item">
+                        <time datetime="{{ post.meta.date|datetime }}">{{ post.meta.date|datetime }}</time>
+                        <a href="{{ url_for('post', path=post.path) }}" class="post-link">{{ post.meta.title }}</a>
+                        <div class="post-meta">
+                            <a href="{{ url_for('category', category=post.meta.category) }}" class="category">{{ post.meta.category }}</a>
+                            <div class="tag-list">
+                                {% for tag in post.meta.tags %}
+                                <a href="{{ url_for('tag', tag=tag) }}" class="tag">{{ tag }}</a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
             {% endfor %}
         </div>
+        {% else %}
+        <p class="no-posts">暂无文章</p>
         {% endfor %}
-    </section>
-    {% endfor %}
+    </div>
 </div>
 
 <style>
-    .archive {
+    .archive-page {
         max-width: 100%;
+        margin: 0 auto;
     }
 
-    .archive-year {
+    .page-title {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+        color: var(--primary-color);
+    }
+
+    .year-group {
         margin-bottom: 3rem;
     }
 
-    .year-title {
-        font-size: 2rem;
+    .year {
+        font-size: 1.8rem;
         margin-bottom: 1.5rem;
         color: var(--primary-color);
+        border-bottom: 2px solid var(--border-color);
+        padding-bottom: 0.5rem;
     }
 
-    .archive-month {
+    .month-group {
+        margin-bottom: 2rem;
         margin-left: 1rem;
     }
 
-    .archive-item {
-        display: flex;
-        align-items: baseline;
+    .month {
+        font-size: 1.4rem;
         margin-bottom: 1rem;
-        gap: 1rem;
+        color: var(--secondary-color);
     }
 
-    .archive-date {
+    .post-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .post-item {
+        margin-bottom: 1rem;
+        padding: 1rem;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        transition: transform 0.2s;
+    }
+
+    .post-item:hover {
+        transform: translateX(4px);
+    }
+
+    .post-item time {
         color: var(--secondary-color);
         font-size: 0.9rem;
-        min-width: 4rem;
+        margin-right: 1rem;
     }
 
-    .archive-title {
-        font-size: 1rem;
-        font-weight: normal;
-        margin: 0;
-        flex-grow: 1;
-    }
-
-    .archive-title a {
+    .post-link {
         text-decoration: none;
         color: var(--primary-color);
+        font-weight: 500;
+        margin-right: 1rem;
     }
 
-    .archive-title a:hover {
+    .post-link:hover {
         text-decoration: underline;
     }
 
-    .archive-category {
+    .post-meta {
+        margin-top: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
         font-size: 0.9rem;
-        color: var(--secondary-color);
-        text-decoration: none;
-        padding: 0.2rem 0.5rem;
-        background: var(--border-color);
-        border-radius: 3px;
     }
 
-    .archive-category:hover {
+    .category {
         color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 500;
     }
 
-    @media (max-width: 600px) {
-        .archive-item {
-            flex-wrap: wrap;
+    .tag-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .tag {
+        background: var(--border-color);
+        padding: 0.2rem 0.6rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        text-decoration: none;
+        color: var(--secondary-color);
+        transition: all 0.2s;
+    }
+
+    .tag:hover {
+        background: var(--primary-color);
+        color: white;
+    }
+
+    .no-posts {
+        text-align: center;
+        color: var(--secondary-color);
+        padding: 2rem 0;
+    }
+
+    @media (max-width: 768px) {
+        .month-group {
+            margin-left: 0;
         }
 
-        .archive-date {
-            min-width: auto;
+        .post-item {
+            padding: 0.8rem;
         }
 
-        .archive-title {
-            width: 100%;
-            margin: 0.2rem 0;
+        .post-meta {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.5rem;
         }
     }
 </style>

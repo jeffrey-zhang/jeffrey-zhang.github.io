@@ -1,57 +1,72 @@
 {% extends "base.html" %}
 
-{% block title %}标签 - 个人日记{% endblock %}
+{% block title %}标签 - ZHANG.PRESS{% endblock %}
 
 {% block content %}
 <div class="tags-page">
-    <h1 class="page-title">标签云</h1>
-    <div class="tag-cloud">
+    <h1 class="page-title">文章标签</h1>
+    <div class="tags-cloud">
         {% for tag in tags %}
-        <a href="{{ url_for('tag', tag=tag) }}" class="tag-item">
-            {{ tag }}
-        </a>
+        <a href="{{ url_for('tag', tag=tag) }}" class="tag-item">{{ tag }}</a>
         {% else %}
-        <p>暂无标签</p>
+        <p class="no-tags">暂无标签</p>
         {% endfor %}
     </div>
 </div>
 
 <style>
+    .tags-page {
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
     .page-title {
-        margin-bottom: 2rem;
         font-size: 2rem;
+        margin-bottom: 2rem;
         color: var(--primary-color);
     }
 
-    .tag-cloud {
+    .tags-cloud {
         display: flex;
         flex-wrap: wrap;
         gap: 1rem;
-        padding: 1rem;
-        background: var(--background-color);
-        border-radius: 5px;
+        padding: 1rem 0;
     }
 
     .tag-item {
         display: inline-block;
         padding: 0.5rem 1rem;
-        background: var(--border-color);
+        background: white;
         border-radius: 20px;
         text-decoration: none;
-        color: var(--secondary-color);
+        color: var(--primary-color);
         font-size: 1rem;
-        transition: all 0.2s ease;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        transition: all 0.2s;
     }
 
     .tag-item:hover {
         transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         background: var(--primary-color);
-        color: var(--background-color);
+        color: white;
     }
 
-    @media (max-width: 600px) {
-        .tag-cloud {
-            justify-content: center;
+    .no-tags {
+        text-align: center;
+        color: var(--secondary-color);
+        padding: 2rem 0;
+        width: 100%;
+    }
+
+    @media (max-width: 768px) {
+        .tags-cloud {
+            gap: 0.8rem;
+        }
+
+        .tag-item {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.9rem;
         }
     }
 </style>
